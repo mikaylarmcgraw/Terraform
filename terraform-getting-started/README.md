@@ -88,3 +88,5 @@ block_type "block_label" "block_name" {
 - `terraform plan`: Creates an execution plan for applying changes to the infrastructure. This command examines the Terraform configuration, checks the current state, and produces an execution plan detailing what actions Terraform will take to achieve the desired state.
 
 - `terraform apply`: Applies the changes specified in the execution plan. This command prompts for confirmation before making any changes, and once confirmed, Terraform applies the changes, creating, modifying, or deleting resources as necessary.
+
+- `terraform destroy`: This command is used to tear down or destroy the infrastructure that was created using the terraform apply command.
