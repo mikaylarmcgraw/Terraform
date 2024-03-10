@@ -1,6 +1,14 @@
-# Terraform - Getting Started
+# Terraform - Getting Started <!-- omit from toc -->
 
-## Table of Contents
+## Table of Contents <!-- omit from toc -->
+
+1. [What is Terraform?](#what-is-terraform)
+2. [What is Infrastructure as Code?](#what-is-infrastructure-as-code)
+3. [Terraform Core Concepts](#terraform-core-concepts)
+4. [Infrastructure as Code Benefits](#infrastructure-as-code-benefits)
+5. [Terraform Object Types](#terraform-object-types)
+6. [Block Syntax](#block-syntax)
+7. [Terraform Workflow](#terraform-workflow)
 
 ## What is Terraform?
 
