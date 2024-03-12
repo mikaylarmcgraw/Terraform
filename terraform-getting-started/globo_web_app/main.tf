@@ -1,9 +1,9 @@
 # PROVIDERS
 
 provider "aws" {
-    access_key = "Access key"
-    secret_key = "secret key"
-    region     = "us-east-1"
+    access_key = var.aws_access_key
+    secret_key = var.aws_secret_key
+    region     = var.aws_region
 }
 
 #DATA
@@ -16,8 +16,8 @@ data "aws_ssm_parameter" "amzn2_linux" {
 
 ## NETWROKING
 resource "aws_vpc" "app" {
-    cidr_block           = "10.0.0.0/16"
-    enable_dns_hostnames = true
+    cidr_block           = var.cidr_block.aws_vpc
+    enable_dns_hostnames = var.enable_dns_hostnames
 }
 
 resource "aws_internet_gateway" "app" {
@@ -25,9 +25,9 @@ resource "aws_internet_gateway" "app" {
 }
 
 resource "aws_subnet" "public_subnet1" {
-    cidr_block              = "10.0.0.0/24"
+    cidr_block              = var.cidr_block.aws_subnet
     vpc_id                  = aws_vpc.app.id
-    map_public_ip_on_launch = true
+    map_public_ip_on_launch = var.map_public_ip_on_launch
 }
 
 #ROUTING
@@ -36,7 +36,7 @@ resource "aws_route_table" "app" {
     vpc_id = aws_vpc.app.id
 
     route {
-        cidr_block = "0.0.0.0/0"
+        cidr_block = var.cidr_block.aws_route_table
         gateway_id = aws_internet_gateway.app.id
     }
 }
@@ -57,7 +57,7 @@ resource "aws_security_group" "nginx_sg" {
         from_port   = 80
         to_port     = 80
         protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [var.cidr_block.aws_security_group_ingress]
     }
 
     #outbound internet access
@@ -65,7 +65,7 @@ resource "aws_security_group" "nginx_sg" {
         from_port   = 0
         to_port     = 0
         protocol    = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [var.cidr_block.aws_security_group_egress]
     }
   
 }
@@ -73,7 +73,7 @@ resource "aws_security_group" "nginx_sg" {
 #INSTANCES
 resource "aws_instance" "nginx1" {
     ami = nonsensitive(data.aws_ssm_parameter.amzn2_linux.value)
-    instance_type = "t2.micro"
+    instance_type = var.instance_type
     subnet_id = aws_subnet.public_subnet1.id
     vpc_security_group_ids = [aws_security_group.nginx_sg.id]
 
