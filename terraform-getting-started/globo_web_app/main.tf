@@ -1,8 +1,8 @@
 # PROVIDERS
 
 provider "aws" {
-    access_key = "ACCESS_KEY"
-    secret_key = "SECRET_KEY"
+    access_key = "Access key"
+    secret_key = "secret key"
     region     = "us-east-1"
 }
 
