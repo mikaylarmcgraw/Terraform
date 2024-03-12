@@ -206,6 +206,29 @@ PublishScripts/
 *.nuget.props
 *.nuget.targets
 
+plaintext
+Copy code
+# Ignore Terraform files
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# Ignore override files as they are usually used to override resources locally and do not need to be committed
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore Terraform binary
+terraform
+
+# Ignore local .terraform directories
+**/.terraform/
+
 # Microsoft Azure Build Output
 csx/
 *.build.csdef
